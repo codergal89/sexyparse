@@ -26,6 +26,7 @@ add_library("${PROJECT_NAME}" INTERFACE)
 target_sources("${PROJECT_NAME}" INTERFACE
   "include/${PROJECT_NAME}/${PROJECT_NAME}.hpp"
 
+  "include/${PROJECT_NAME}/maybe.hpp"
   "include/${PROJECT_NAME}/parse_error.hpp"
 )
 
@@ -48,6 +49,7 @@ add_library("SexyParse::SexyParse" ALIAS "${PROJECT_NAME}")
 add_executable("${PROJECT_NAME}-tests"
   "test/source/tests.cpp"
 
+  "test/source/maybe_tests.cpp"
   "test/source/parse_error_tests.cpp"
 )
 
