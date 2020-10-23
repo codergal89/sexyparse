@@ -24,8 +24,9 @@ include("Catch")
 add_library("${PROJECT_NAME}" INTERFACE)
 
 target_sources("${PROJECT_NAME}" INTERFACE
-  "include/sexytime/parse_error.hpp"
-  "include/sexytime/sexytime.hpp"
+  "include/${PROJECT_NAME}/${PROJECT_NAME}.hpp"
+
+  "include/${PROJECT_NAME}/parse_error.hpp"
 )
 
 target_compile_features("${PROJECT_NAME}" INTERFACE

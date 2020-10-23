@@ -1,5 +1,5 @@
-#ifndef SEXYTIME_PARSE_ERROR_HPP_
-#define SEXYTIME_PARSE_ERROR_HPP_
+#ifndef SEXYPARSE_PARSE_ERROR_HPP_
+#define SEXYPARSE_PARSE_ERROR_HPP_
 
 #include <system_error>
 #include <string>
