@@ -46,6 +46,7 @@ namespace sexy
             return std::holds_alternative<value_type>(m_underlying);
         }
 
+        template <typename Enabler = ValueType, typename = std::enable_if_t<!std::is_same_v<std::decay_t<Enabler>, bool>>>
         constexpr explicit operator value_type() const
         {
             return std::get<value_type>(m_underlying);

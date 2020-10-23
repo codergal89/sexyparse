@@ -18,6 +18,11 @@ TEST_CASE("A 'maybe' can be constructed with a constant value")
     sexy::maybe{value};
 }
 
+TEST_CASE("A 'maybe<bool>' can be checked by bool conversion")
+{
+    REQUIRE(static_cast<bool>(sexy::maybe{false}));
+}
+
 TEST_CASE("A 'maybe' can be constructed with an error code")
 {
     sexy::maybe<long>{make_error_code(std::errc::no_lock_available)};
