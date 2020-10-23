@@ -24,11 +24,20 @@ include("Catch")
 add_library("${PROJECT_NAME}" INTERFACE)
 
 target_sources("${PROJECT_NAME}" INTERFACE
-  "include/sexytime.hpp"
+  "include/sexytime/parse_error.hpp"
+  "include/sexytime/sexytime.hpp"
 )
 
 target_compile_features("${PROJECT_NAME}" INTERFACE
   "cxx_std_17"
+)
+
+target_include_directories("${PROJECT_NAME}" INTERFACE
+  $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
+)
+
+target_include_directories("${PROJECT_NAME}" SYSTEM INTERFACE
+  $<INSTALL_INTERFACE:include>
 )
 
 add_library("SexyParse::SexyParse" ALIAS "${PROJECT_NAME}")
@@ -37,6 +46,8 @@ add_library("SexyParse::SexyParse" ALIAS "${PROJECT_NAME}")
 
 add_executable("${PROJECT_NAME}-tests"
   "test/source/tests.cpp"
+
+  "test/source/parse_error_tests.cpp"
 )
 
 target_compile_features("${PROJECT_NAME}-tests" PRIVATE
