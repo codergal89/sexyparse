@@ -71,6 +71,7 @@ target_link_libraries("${PROJECT_NAME}-tests" PRIVATE
 set_target_properties("${PROJECT_NAME}-tests" PROPERTIES
   CXX_EXTENSIONS OFF
   CXX_STANDARD_REQUIRED YES
+  INTERPROCEDURAL_OPTIMIZATION_MINSIZEREL YES
 )
 
 catch_discover_tests("${PROJECT_NAME}-tests")
