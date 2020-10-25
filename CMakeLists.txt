@@ -49,7 +49,12 @@ add_library("SexyParse::SexyParse" ALIAS "${PROJECT_NAME}")
 add_executable("${PROJECT_NAME}-tests"
   "test/source/tests.cpp"
 
-  "test/source/maybe_tests.cpp"
+  "test/source/maybe/bool_conversion_tests.cpp"
+  "test/source/maybe/constructor_tests.cpp"
+  "test/source/maybe/error_conversion_tests.cpp"
+  "test/source/maybe/map_tests.cpp"
+  "test/source/maybe/unwrap_tests.cpp"
+  "test/source/maybe/value_conversion_tests.cpp"
   "test/source/parse_error_tests.cpp"
 )
 
