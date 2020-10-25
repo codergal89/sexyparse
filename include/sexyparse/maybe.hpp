@@ -54,6 +54,18 @@ namespace sexy
             return std::get<value_type>(m_underlying);
         }
 
+        template <typename Enabler = ValueType, typename = std::enable_if_t<!std::is_same_v<std::decay_t<Enabler>, bool>>>
+        constexpr explicit operator reference()
+        {
+            return std::get<value_type>(m_underlying);
+        }
+
+        template <typename Enabler = ValueType, typename = std::enable_if_t<!std::is_same_v<std::decay_t<Enabler>, bool>>>
+        constexpr explicit operator const_reference() const
+        {
+            return std::get<value_type>(m_underlying);
+        }
+
         explicit operator error_type() const noexcept
         {
             if (!*this)
