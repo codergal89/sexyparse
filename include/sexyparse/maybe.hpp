@@ -56,7 +56,7 @@ namespace sexy
 
         explicit operator error_type() const noexcept
         {
-            if (std::holds_alternative<error_type>(m_underlying))
+            if (!*this)
             {
                 return std::get<error_type>(m_underlying);
             }
@@ -84,25 +84,25 @@ namespace sexy
         }
 
         template <typename Callable>
-        auto constexpr map(Callable &&callable) -> std::enable_if_t<std::is_invocable_v<Callable, reference>,
-                                                                    maybe<std::invoke_result_t<Callable, reference>>>
+        auto map(Callable &&callable) -> std::enable_if_t<std::is_invocable_v<Callable, reference>,
+                                                          maybe<std::invoke_result_t<Callable, reference>>>
         {
             using result_type = std::invoke_result_t<Callable, reference>;
             if (*this)
             {
-                return maybe<result_type>{std::invoke(std::forward<Callable>(callable), std::get<value_type>(m_underlying))};
+                return maybe<result_type>{std::invoke(std::forward<Callable>(callable), unwrap())};
             }
             return maybe<result_type>{std::get<error_type>(m_underlying)};
         }
 
         template <typename Callable>
-        auto constexpr map(Callable &&callable) const -> std::enable_if_t<std::is_invocable_v<Callable, const_reference>,
-                                                                          maybe<std::invoke_result_t<Callable, const_reference>>>
+        auto map(Callable &&callable) const -> std::enable_if_t<std::is_invocable_v<Callable, const_reference>,
+                                                                maybe<std::invoke_result_t<Callable, const_reference>>>
         {
             using result_type = std::invoke_result_t<Callable, const_reference>;
             if (*this)
             {
-                return maybe<result_type>{std::invoke(std::forward<Callable>(callable), this->unwrap())};
+                return maybe<result_type>{std::invoke(std::forward<Callable>(callable), unwrap())};
             }
             return maybe<result_type>{std::get<error_type>(m_underlying)};
         }
