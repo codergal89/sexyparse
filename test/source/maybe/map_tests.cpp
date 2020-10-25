@@ -33,3 +33,9 @@ TEST_CASE("Mapping over a 'maybe' constructed with an error yield a maybe with t
     auto result = sexy::maybe<int>{make_error_code(std::errc::argument_out_of_domain)}.map([](auto value) { return value; });
     REQUIRE(static_cast<std::error_code>(result) == std::errc::argument_out_of_domain);
 }
+
+TEST_CASE("Can map over a constant 'maybe' instance")
+{
+    auto const object = sexy::maybe{"Hello, World!\n"s};
+    object.map([](auto const &) { return true; });
+}

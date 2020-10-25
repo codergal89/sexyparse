@@ -93,6 +93,17 @@ namespace sexy
             return maybe<result_type>{std::get<error_type>(m_underlying)};
         }
 
+        template <typename Callable>
+        auto constexpr map(Callable &&callable) const -> std::enable_if_t<std::is_invocable_v<Callable, value_type const &>, maybe<std::invoke_result_t<Callable, value_type const &>>>
+        {
+            using result_type = std::invoke_result_t<Callable, value_type const &>;
+            if (*this)
+            {
+                return maybe<result_type>{std::invoke(std::forward<Callable>(callable), this->unwrap())};
+            }
+            return maybe<result_type>{std::get<error_type>(m_underlying)};
+        }
+
     private:
         std::variant<value_type, error_type> m_underlying;
     };
