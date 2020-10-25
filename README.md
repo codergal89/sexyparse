@@ -1,8 +1,8 @@
 [![CI](https://github.com/codergal89/sexyparse/workflows/CI/badge.svg)](https://github.com/codergal89/sexyparse/actions?query=workflow%3ACI)
 
-# SexyParse - A Single-Header S-Expression Parsing Library
+# SexyParse - A Header-only S-Expression Parsing Library
 
-*SexyParse* is a simple, single-header s-expression parsing library written in modern C++
+*SexyParse* is a simple, header-only s-expression parsing library written in modern C++
 
 ## Dependencies
 
