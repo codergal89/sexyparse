@@ -61,6 +61,26 @@ namespace sexy
             return std::error_code{};
         }
 
+        auto constexpr unwrap() & -> value_type &
+        {
+            return std::get<value_type>(m_underlying);
+        }
+
+        auto constexpr unwrap() const & -> value_type const &
+        {
+            return std::get<value_type>(m_underlying);
+        }
+
+        auto constexpr unwrap() && -> value_type &&
+        {
+            return std::get<value_type>(std::move(m_underlying));
+        }
+
+        auto constexpr unwrap() const && -> value_type const &&
+        {
+            return std::get<value_type>(std::move(m_underlying));
+        }
+
         template <typename Callable>
         auto constexpr map(Callable &&callable) -> std::enable_if_t<std::is_invocable_v<Callable, value_type>,
                                                                     maybe<std::invoke_result_t<Callable, value_type>>>
