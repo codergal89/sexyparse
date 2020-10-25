@@ -28,6 +28,8 @@ namespace sexy
     {
         using value_type = ValueType;
         using error_type = std::error_code;
+        using reference = value_type &;
+        using const_reference = value_type const &;
 
         constexpr explicit maybe(ValueType const &value) : m_underlying{value}
         {
@@ -82,10 +84,10 @@ namespace sexy
         }
 
         template <typename Callable>
-        auto constexpr map(Callable &&callable) -> std::enable_if_t<std::is_invocable_v<Callable, value_type>,
-                                                                    maybe<std::invoke_result_t<Callable, value_type>>>
+        auto constexpr map(Callable &&callable) -> std::enable_if_t<std::is_invocable_v<Callable, reference>,
+                                                                    maybe<std::invoke_result_t<Callable, reference>>>
         {
-            using result_type = std::invoke_result_t<Callable, value_type>;
+            using result_type = std::invoke_result_t<Callable, reference>;
             if (*this)
             {
                 return maybe<result_type>{std::invoke(std::forward<Callable>(callable), std::get<value_type>(m_underlying))};
@@ -94,9 +96,10 @@ namespace sexy
         }
 
         template <typename Callable>
-        auto constexpr map(Callable &&callable) const -> std::enable_if_t<std::is_invocable_v<Callable, value_type const &>, maybe<std::invoke_result_t<Callable, value_type const &>>>
+        auto constexpr map(Callable &&callable) const -> std::enable_if_t<std::is_invocable_v<Callable, const_reference>,
+                                                                          maybe<std::invoke_result_t<Callable, const_reference>>>
         {
-            using result_type = std::invoke_result_t<Callable, value_type const &>;
+            using result_type = std::invoke_result_t<Callable, const_reference>;
             if (*this)
             {
                 return maybe<result_type>{std::invoke(std::forward<Callable>(callable), this->unwrap())};
